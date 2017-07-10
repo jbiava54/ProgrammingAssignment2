@@ -4,7 +4,22 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
+        ## set the matrix
+        ## get the matrix
+        ## set the inverse
+        ## get the inverse
+        inv <- NULL
+        set <- function(y) {
+                x <<- y
+                inv <<- NULL
+        }
+        get <- function() x
+        setInverse <- function() inv <<- solve(x)
+        getInverse <- function() inv
+        list(set = set, get = get , setInverse = setInverse, getInverse = getInverse)
+}
 
+## doesn't seem to work for nonsquared matrices
 }
 
 
@@ -12,4 +27,17 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+ 
+        inv <- x$getInverse()
+        if(!is.null(inv)) {
+                message("getting cached data")
+                return(inv)
+                
+        }
+        data <- x$get()
+        inv <- solve(data, ...)
+        x$setInverse(inv)
+        inv
+}
+        
 }
